@@ -74,7 +74,7 @@ class Wrong:
         return 100
 
 #p=Problem()
-#TypeError: Can't instantiate abstract class Problem with abstract methods inputs, outputs
+#TypeError: Can't instantiate abstract class..
 
 prob = SumUpToN()
 prob.add_solver(Naive())

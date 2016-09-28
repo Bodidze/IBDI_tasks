@@ -5,7 +5,7 @@ class Meta(type):
 
     def __new__(mcls, name, bases, attrs):
         cls = type.__new__(mcls, name, bases, attrs)
-        #class is added to module namespace so that pickle.dumps is able to find them
+        #class added to module namespace so that pickle.dumps is able to find them
         setattr(sys.modules[__name__], name, cls)
         return cls
 
