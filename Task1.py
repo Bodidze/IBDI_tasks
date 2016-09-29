@@ -25,11 +25,11 @@ class Problem(metaclass = ABCMeta):
         Serves for adding classes with 'compute' method for
         calculations on data.
         """
-
-        if hasattr(obj,"compute"):
+        mname="compute"
+        if hasattr(obj,mname):
             self.solvers.append(obj)
         else:
-            raise NoMethodException("Class does not have 'compute' method")
+            raise NoMethodException("Class does not have '%s' method" % (mname))
 
     def profile_solvers(self):
         """
@@ -44,10 +44,10 @@ class Problem(metaclass = ABCMeta):
         for obj in self.solvers:
             t = 0
             objname = obj.__class__.__name__
-            print("Solving '%s' with '%s', input = (%d, %d) "%(clsname, objname, x1, x2))  #was decided to loop over tuple
+            print("Solving '%s' with '%s', input = (%d, %d)" % (clsname, objname, x1, x2))   # was decided to loop over tuple
 
             for _ in range(loops):
-                start = time.time()  #time module was used for timing for the sake of simplicity
+                start = time.time()   # time module was used for timing for the sake of simplicity
                 r1 = obj.compute(x1)
                 r2 = obj.compute(x2)
                 t+=time.time() - start
@@ -81,8 +81,7 @@ class Wrong:
         return 100
 
 
-#p=Problem() TypeError: Can't instantiate abstract class..
-
+# p=Problem() TypeError: Can't instantiate abstract class..
 prob = SumUpToN()
 prob.add_solver(Naive())
 prob.add_solver(ConstTime())
