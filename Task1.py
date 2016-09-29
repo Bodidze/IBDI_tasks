@@ -11,21 +11,34 @@ class Problem(metaclass = ABCMeta):
     def __init__(self):
         self.solvers = []
 
+
     @abstractmethod
     def inputs(self):
         pass
+
 
     @abstractmethod
     def outputs(self):
         pass
 
+
     def add_solver(self, obj):
+        """
+        Serves for adding classes with 'compute' method for
+        calculations on data.
+        """
+
         if hasattr(obj,"compute"):
             self.solvers.append(obj)
         else:
-            raise NoMethodException("Class does not have required method")
+            raise NoMethodException("Class does not have 'compute' method")
+
 
     def profile_solvers(self):
+        """
+        Profiles all the available solutions added via add_solver method.
+        """
+
         clsname = self.__class__.__name__
         x1, x2 = self.inputs()
         check = self.outputs()
@@ -48,8 +61,7 @@ class Problem(metaclass = ABCMeta):
                     print("Result is not correct")
                     break
 
-                if i == loops - 1:
-                    print("%d loops took %f seconds on average" %(loops, t/loops))
+            print("%d loops took %f seconds on average" %(loops, t/loops))
 
 
 class SumUpToN(Problem):
