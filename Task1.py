@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 import time
 from functools import reduce
 
+
 class Problem(metaclass = ABCMeta):
     """
     Abstract base class for data flow and collection of
@@ -11,16 +12,13 @@ class Problem(metaclass = ABCMeta):
     def __init__(self):
         self.solvers = []
 
-
     @abstractmethod
     def inputs(self):
         pass
 
-
     @abstractmethod
     def outputs(self):
         pass
-
 
     def add_solver(self, obj):
         """
@@ -32,7 +30,6 @@ class Problem(metaclass = ABCMeta):
             self.solvers.append(obj)
         else:
             raise NoMethodException("Class does not have 'compute' method")
-
 
     def profile_solvers(self):
         """
@@ -47,12 +44,10 @@ class Problem(metaclass = ABCMeta):
         for obj in self.solvers:
             t = 0
             objname = obj.__class__.__name__
-            print("Solving '%s' with '%s', input = (%d, %d) "%(clsname, objname, x1, x2))
-            #was decided to loop over tuple
-            #time module was used for timing for the sake of simplicity
+            print("Solving '%s' with '%s', input = (%d, %d) "%(clsname, objname, x1, x2))  #was decided to loop over tuple
 
-            for i in range(loops):
-                start = time.time()
+            for _ in range(loops):
+                start = time.time()  #time module was used for timing for the sake of simplicity
                 r1 = obj.compute(x1)
                 r2 = obj.compute(x2)
                 t+=time.time() - start
@@ -85,8 +80,8 @@ class Wrong:
     def compute(self, N):
         return 100
 
-#p=Problem()
-#TypeError: Can't instantiate abstract class..
+
+#p=Problem() TypeError: Can't instantiate abstract class..
 
 prob = SumUpToN()
 prob.add_solver(Naive())
