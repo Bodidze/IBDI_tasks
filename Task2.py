@@ -1,5 +1,7 @@
-import pickle
+import copyreg
 import sys
+import pickle
+import dill
 
 class Meta(type):
 
@@ -8,16 +10,24 @@ class Meta(type):
         setattr(sys.modules[__name__], name, cls)   # class added to module namespace so that pickle.dumps is able to find them
         return cls
 
+    def __reduce__(self):
+        return (person_with_pet(), (self.pet, ),)
+
 
 def person_with_pet(pet):
-    name = 'PersonWith%s' % pet.capitalize()
+    name = 'PersonWith%s' % str(pet).capitalize()
     return Meta(name, (), {'pet': pet})
 
 
-#cat_cls = person_with_pet('cat')
-#bob = cat_cls()
 
-#pickld = pickle.dumps(bob)
-#unpickld = pickle.loads(pickld)
+#copyreg.pickle(Meta, person_with_pet)
 
-#print(type(bob) is type(unpickld))
+a=person_with_pet('cat')
+bob=a()
+
+pickld=pickle.dumps(bob)
+unpickld=pickle.loads(pickld)
+
+#__getstate__ should return a picklable object (such as a tuple) with enough information to reconstruct the instance.
+
+#__setstate__ should expect to receive the same object, and use it to reconfigure the instance.

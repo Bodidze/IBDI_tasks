@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../IBDI_tasks/.idea/untitled.iml" filepath="$PROJECT_DIR$/../IBDI_tasks/.idea/untitled.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/IBDI_tasks.iml" filepath="$PROJECT_DIR$/.idea/IBDI_tasks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/untitled.iml" filepath="$PROJECT_DIR$/.idea/untitled.iml" />
     </modules>
   </component>
 </project>
